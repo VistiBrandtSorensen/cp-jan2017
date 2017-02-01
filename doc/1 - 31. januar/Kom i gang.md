@@ -10,4 +10,9 @@ I skal downloade og installere følgende:
     * [Download](https://code.visualstudio.com/)
 3. GitHub Desktop
     * [Download](https://desktop.github.com/)
-
+4. NodeJS
+    * [Download](https://nodejs.org/)
+5. Yeoman
+    * npm install -g yo
+6. C# generator
+    * npm install -g generator-aspnet
