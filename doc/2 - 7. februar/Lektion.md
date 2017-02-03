@@ -29,3 +29,5 @@
 
 Bool
 Arrays
+
+TESTS (using xUnit - test with VS Code)
