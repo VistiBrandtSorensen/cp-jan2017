@@ -104,7 +104,7 @@ Vi kigger nærmere på metoder og funktioner senere, men kort fortalt, kan man p
 
 ### Metode
 
-En metoder returnerer ikke en værdi - den gør kun noget.
+En metode returnerer ikke en værdi - den gør kun noget.
 
 *Eksempel:*
 
