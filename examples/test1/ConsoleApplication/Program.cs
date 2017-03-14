@@ -9,31 +9,58 @@ namespace ConsoleApplication
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Indtast x:");
-            string x = Console.ReadLine();
-            int talX;
-            if (int.TryParse(x, out talX) == false)
-            {
-                Console.WriteLine("fejl");
-                return;
-            }
+            var calculator = new Calculator();
+            // calculator.Add(2);
+            // calculator.Add(8); // 10
+            // calculator.Multiply(2); // 20
+            // calculator.Divide(4); // 5
+            // calculator.Minus(3); // 2
 
-            Console.WriteLine("Indtast y:");
-            string y = Console.ReadLine();
-            int talY;
-            if (int.TryParse(y, out talY) == false)
+            string operation = "+";
+            do
             {
-                Console.WriteLine("Fejl, prøv igen med et tal");
-                y = Console.ReadLine();
-                if (int.TryParse(y, out talY) == false)
+                Console.WriteLine("Indtast et tal: ");
+                string numberText = Console.ReadLine();
+                int number = int.Parse(numberText);
+
+                if (operation == "+")
                 {
-                    Console.WriteLine("Fejl igen!");
-                    return;
+                    calculator.Add(number);
                 }
-            }
+                else if (operation == "-")
+                {
+                    calculator.Minus(number);
+                }
+                else if (operation == "*")
+                {
+                    calculator.Multiply(number);
+                }
+                else if (operation == "/")
+                {
+                    calculator.Divide(number);
+                }
+                else if (operation == "=")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Ugyldig operation");
+                }
 
-            Console.WriteLine("x + y er");
-            Console.WriteLine(talX + talY);
+                Console.WriteLine("Indtast +, -, *, /, =");
+                operation = Console.ReadLine();
+                if (operation != "+" || operation != "-" || operation != "*" || operation != "/" || operation != "=")
+                {
+                    Console.WriteLine("Ugyldig operation");
+                }
+            } while(operation != "=");
+
+
+            int resultat = calculator.Resultat();
+
+            Console.Write("Resultat: ");
+            Console.WriteLine(resultat);
         }
     }
 }
