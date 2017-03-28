@@ -6,59 +6,110 @@ namespace mar14
     {
         static void Main(string[] args)
         {
-            var board = new bool[][]
+            Console.WriteLine("Hvor stor skal spillepladen være (4-9)?");
+            int boardSize = int.Parse(Console.ReadLine());
+            while (boardSize < 4 || boardSize > 9)
             {
-                new bool[]{ false, false, false, false},
-                new bool[]{ false, false, false, false},
-                new bool[]{ false, false, false, false},
-                new bool[]{ false, false, false, false}
-            };
+                Console.WriteLine("Ugyldig størrelse, prøv igen:");
+                boardSize = int.Parse(Console.ReadLine());
+            }
 
-            var shots = new char[][]
+            var board = new bool[boardSize][];
+            var shots = new char[boardSize][];
+            for (int i = 0; i < boardSize; i++)
             {
-                new char[]{ ' ', ' ', ' ', ' '},
-                new char[]{ ' ', ' ', ' ', ' '},
-                new char[]{ ' ', ' ', ' ', ' '},
-                new char[]{ ' ', ' ', ' ', ' '}
-            };
+                board[i] = new bool[boardSize];
+                shots[i] = new char[boardSize];
+                for (int j = 0; j < boardSize; j++)
+                {
+                    board[i][j] = false;
+                    shots[i][j] = ' ';
+                }
+            }
 
-            // Skibets placering
-            board[3][0] = true;
+            int shipSize = 3;
+            int maxCoordinate = boardSize - shipSize + 1;
+
+            Console.WriteLine("Skal skibet ligge vandret (V) eller lodret (L)?");
+            string direction = Console.ReadLine();
+            bool isHorizontal = direction.Equals("V", StringComparison.OrdinalIgnoreCase);
+
+            Console.WriteLine("Hvor skibet ligge (x-koordinat) 1-{0}?", isHorizontal ? maxCoordinate : boardSize);
+            int shipX = int.Parse(Console.ReadLine()) - 1;
+
+            Console.WriteLine("Hvor skal skibet ligge (y-koordinat) 1-{0}?", isHorizontal ? boardSize : maxCoordinate);
+            int shipY = int.Parse(Console.ReadLine()) - 1;
+
+            for(int i = 0; i < shipSize; i++)
+            {
+                int x = isHorizontal
+                    ? shipX + i
+                    : shipX;
+                
+                int y = isHorizontal
+                    ? shipY
+                    : shipY + 1;
+                
+                board[x][y] = true;
+            }
 
             bool isHit = false;
-            while(isHit == false)
+            while(!isHit)
             {
                 Console.WriteLine("Hvor vil du skyde hen (x-koordinat)?");
-                int shotX = int.Parse(Console.ReadLine());
+                int shotX = int.Parse(Console.ReadLine()) - 1;
 
                 Console.WriteLine("Hvor vil du skyde hen (y-koordinat)?");
-                int shotY = int.Parse(Console.ReadLine());
+                int shotY = int.Parse(Console.ReadLine()) - 1;
 
                 isHit = board[shotX][shotY];
+
+                string hitText;
                 if (isHit)
                 {
                     shots[shotX][shotY] = 'X';
-                    Console.WriteLine("Du ramte!!!");
+                    hitText = "Du ramte!!!";
                 }
                 else
                 {
                     shots[shotX][shotY] = '*';
-                    Console.WriteLine("Du missede!!!");
+                    hitText = "Du missede!!!";
                 }
 
-                for (int x = 0; x < 4; x++)
+                Console.Clear();
+
+                string line = "  -";
+                string header = "   ";
+                for (int z = 0; z < boardSize; z++)
                 {
-                    Console.WriteLine("  -----------");
-                    for (int y = 0; y < 4; y++)
+                    line += "----";
+                    header += $" {z+1}  ";
+                }
+
+                Console.WriteLine(header);
+                for (int y = 0; y < boardSize; y++)
+                {
+                    Console.WriteLine(line);
+                    Console.Write(y + 1);
+                    for (int x = 0; x < boardSize; x++)
                     {
                         Console.Write(" | ");
                         Console.Write(shots[x][y]);
                     }
-                    Console.WriteLine();
+                    Console.WriteLine(" |");
                 }
-                Console.WriteLine("  -----------");
+                Console.WriteLine(line);
+
+                Console.WriteLine();
+                Console.WriteLine(hitText);
+                Console.WriteLine();
             }
 
         }
+
+        // static bool IsShipSunk()
+        // {
+
+        // }
     }
 }
