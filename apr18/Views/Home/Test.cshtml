@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Test";
+}
+@model mar14.Player
+
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>Use this area to provide additional information.</p>
+
+<div class="container">
+@for (int i=0; i<9; i++)
+{
+    <div class="row">
+    @for (int j=0; j<9; j++)
+    {
+        <div class="col-xs-1">
+            <div class="text-center" style="height:6em">
+                @Html.ActionLink("Skyd", "Test", "Home", new { x = j, y = i}, null)
+                @Model.shots[j][i]
+            </div>
+        </div>
+    }
+    </div>
+}
+</div>
